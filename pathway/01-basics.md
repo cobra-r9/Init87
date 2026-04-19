@@ -8,7 +8,6 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 
 ## PART 0 — Before You Write a Line
 
-```
 0.1   What C is — compiled, statically typed, manual memory, close-to-metal
 0.2   What C is not — no OOP, no GC, no bounds checking, no exceptions
 0.3   History — Ritchie 1972, K&R, ANSI C89, C99, C11, C17, C23
@@ -22,13 +21,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 0.11  Errors vs warnings — what each means
 0.12  The C standard library — what it is, what it isn't
 0.13  Platform vs standard — what's portable, what's Linux/POSIX-only
-```
 
 
 
 ## PART 1 — Fundamental Types
 
-```
 1.1   Integer types — char, short, int, long, long long
 1.2   Unsigned variants — unsigned char, unsigned int, etc.
 1.3   Sizes are not guaranteed — sizeof, <limits.h>, INT_MAX, CHAR_BIT
@@ -48,13 +45,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 1.17  Literals — integer (0x, 0b, 0, u, l, ul, ll), float (f, l), char ('\n', '\0', '\x41')
 1.18  String literals — "hello", stored where, NUL terminator, immutable
 1.19  Compound literals — (int[]){1,2,3}, (struct Point){.x=1}
-```
 
 
 
 ## PART 2 — Variables, Scope & Storage
 
-```
 2.1   Declaration vs definition — what each means, where each goes
 2.2   Initialization — default values (none for locals), zero for globals
 2.3   Scope — block, function, file (translation unit)
@@ -71,13 +66,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 2.14  Global/static memory — BSS (zero-init) vs data (init) segments
 2.15  Shadowing — inner scope hiding outer variable, compiler warnings
 2.16  Tentative definitions — C's quirky external definition rules
-```
 
 
 
 ## PART 3 — Operators
 
-```
 3.1   Arithmetic — +, -, *, /, % and their rules
 3.2   Integer division — truncation toward zero
 3.3   Modulo with negatives — implementation-defined in C89, defined in C99
@@ -101,13 +94,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 3.21  Associativity — left vs right, assignment is right-associative
 3.22  Sequence points — when side effects are guaranteed to complete
 3.23  Evaluation order — largely unspecified, i++ + i++ is UB
-```
 
 
 
 ## PART 4 — Control Flow
 
-```
 4.1   if / else if / else — syntax, dangling else problem
 4.2   switch / case / default — fall-through, break, char/int only
 4.3   switch fall-through — intentional vs accidental, __attribute__((fallthrough))
@@ -123,13 +114,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 4.13  Loop invariants — what must be true on every iteration
 4.14  Nested loops and labeled break (C has none — goto workaround)
 4.15  Early exit patterns — guard clauses vs nested ifs
-```
 
 
 
 ## PART 5 — Functions
 
-```
 5.1   Function definition — return type, name, params, body
 5.2   Function declaration (prototype) — why required before use
 5.3   Return values — return stmt, implicit return (UB in non-void)
@@ -154,13 +143,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 5.22  Calling conventions — how arguments are passed at ABI level (x86-64 SysV)
 5.23  Stack frames — what the compiler puts on the stack per call
 5.24  The call stack — growing downward, frame pointer, return address
-```
 
 
 
 ## PART 6 — Arrays
 
-```
 6.1   Array declaration — T name[N], N must be compile-time constant (C89/C11)
 6.2   Array initialization — {1,2,3}, partial init zeros rest, {0} to zero all
 6.3   Array access — name[i], zero-indexed, no bounds checking
@@ -177,13 +164,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 6.14  const arrays — const int a[] = {1,2,3}
 6.15  Flexible array members — struct with T arr[] at end (C99)
 6.16  Designated initializers — {[2]=5, [0]=1} (C99)
-```
 
 
 
 ## PART 7 — Strings
 
-```
 7.1   C strings — null-terminated char array, no string type
 7.2   String literals — "hello" → {'h','e','l','l','o','\0'}
 7.3   String literal storage — read-only, modifying is UB
@@ -209,13 +194,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 7.23  <ctype.h> — isalpha, isdigit, isspace, toupper, tolower, etc.
 7.24  Wide strings — wchar_t, wcslen, wcscpy (<wchar.h>)
 7.25  Multibyte strings — UTF-8 in C, mbstowcs, locale-dependent functions
-```
 
 
 
 ## PART 8 — Pointers (The Core of C)
 
-```
 8.1   What a pointer is — an address, nothing more
 8.2   Pointer declaration — T *p, reading right-to-left
 8.3   & and * — address-of and dereference
@@ -242,13 +225,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 8.24  Pointer-sized integers — intptr_t, uintptr_t, casting rules
 8.25  Near/far pointers — historical segmented memory (8086), irrelevant now
 8.26  Interior pointers — pointing into the middle of an allocation
-```
 
 
 
 ## PART 9 — Memory Management
 
-```
 9.1   The memory map — text, data, BSS, heap, stack, mmap regions
 9.2   Stack allocation — automatic, LIFO, no free required, limited size
 9.3   Heap allocation — manual, dynamic size, must free
@@ -273,13 +254,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 9.22  MemorySanitizer (MSan) — uninitialized reads (-fsanitize=memory)
 9.23  UBSan — undefined behavior detection (-fsanitize=undefined)
 9.24  Electric Fence / DUMA — page-protected heap debugging
-```
 
 
 
 ## PART 10 — Structs, Unions & Enums
 
-```
 10.1  struct — grouping heterogeneous data, definition, declaration
 10.2  struct initialization — {val1, val2}, designated {.field=val} (C99)
 10.3  Member access — . (direct), -> (via pointer)
@@ -305,13 +284,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 10.23 enum as bit flags — powers of two, combining with |
 10.24 typedef — creating type aliases, struct/union/enum cleanup
 10.25 typedef vs #define — type vs text substitution
-```
 
 
 
 ## PART 11 — The Preprocessor
 
-```
 11.1  What the preprocessor does — text substitution before compilation
 11.2  #include — file inclusion, <> vs "", include search paths
 11.3  #include guards — #ifndef HEADER_H, #pragma once
@@ -335,13 +312,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 11.21 Macro metaprogramming — FOREACH, CONCAT, NARGS tricks
 11.22 assert() — debug assertion, NDEBUG disables it
 11.23 static_assert — _Static_assert(cond, msg) (C11), compile-time check
-```
 
 
 
 ## PART 12 — Type System Deep Dive
 
-```
 12.1  Implicit conversions — integer promotion, usual arithmetic conversions
 12.2  Integer promotion — char/short promoted to int in expressions
 12.3  Usual arithmetic conversions — balancing types in binary ops
@@ -359,13 +334,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 12.15 lvalue vs rvalue — what can appear left/right of assignment
 12.16 Type compatibility — when two struct types are the same
 12.17 Incomplete types — array of unknown size, forward-declared struct
-```
 
 
 
 ## PART 13 — Undefined Behavior (Critical)
 
-```
 13.1  What UB is — behavior the standard places no requirements on
 13.2  Why UB exists — enables compiler optimizations
 13.3  What compilers do with UB — assume it never happens, optimize around it
@@ -386,14 +359,13 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 13.18 Implementation-defined vs unspecified vs UB — the three categories
 13.19 UBSan in practice — catching UB at runtime with -fsanitize=undefined
 13.20 Nasal demons — why "it works on my machine" is meaningless with UB
-```
 
 
 
 ## PART 14 — The C Standard Library
 
 ### `<stdlib.h>`
-```
+
 14.1  malloc/calloc/realloc/free — memory allocation
 14.2  abort() / exit() / _Exit() / atexit() — process termination
 14.3  getenv() / putenv() / setenv() — environment variables
@@ -405,34 +377,28 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 14.9  abs() / labs() / llabs() — absolute value
 14.10 div() / ldiv() — quotient and remainder together
 14.11 EXIT_SUCCESS / EXIT_FAILURE — portable return codes
-```
 
 ### `<string.h>`
-```
+
 14.12 Full function list — already covered in Part 7
 14.13 memset/memcpy/memmove/memcmp/memchr
-```
 
 ### `<math.h>`
-```
+
 14.14 Basic — sqrt, pow, fabs, ceil, floor, round, fmod
 14.15 Trig — sin, cos, tan, asin, acos, atan, atan2
 14.16 Exponential — exp, log, log2, log10
 14.17 Hyperbolic — sinh, cosh, tanh
 14.18 Error detection — errno, EDOM, ERANGE, fpclassify, isnan, isinf
 14.19 Link with -lm
-```
 
 ### `<stdio.h>` (non-file parts)
-```
 14.20 printf/fprintf/sprintf/snprintf/vprintf family
 14.21 scanf/fscanf/sscanf family
 14.22 puts/gets (never use gets)/putchar/getchar
 14.23 perror() — printing errno string
-```
 
 ### `<time.h>`
-```
 14.24 time_t / struct tm — time representations
 14.25 time() — current Unix timestamp
 14.26 clock() — CPU time used, CLOCKS_PER_SEC
@@ -440,71 +406,50 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 14.28 mktime() / gmtime() / localtime() — conversions
 14.29 strftime() — formatting time to string
 14.30 clock_gettime() — POSIX, nanosecond precision, CLOCK_MONOTONIC
-```
 
 ### `<ctype.h>`
-```
 14.31 isalpha, isdigit, isalnum, isspace, ispunct, isprint, iscntrl
 14.32 toupper, tolower — locale-dependent, use with unsigned char
-```
 
 ### `<limits.h>` & `<float.h>`
-```
 14.33 CHAR_BIT, CHAR_MIN, CHAR_MAX, INT_MIN, INT_MAX, LLONG_MAX, etc.
 14.34 FLT_MAX, DBL_EPSILON, LDBL_DIG, etc.
-```
 
 ### `<stddef.h>`
-```
 14.35 NULL, size_t, ptrdiff_t, offsetof, max_align_t
-```
 
 ### `<stdint.h>` & `<inttypes.h>`
-```
 14.36 Fixed-width types, PRId32/SCNu64 format macros for scanf/printf
-```
 
 ### `<errno.h>`
-```
 14.37 errno, EINVAL, ENOMEM, ENOENT, EACCES, EBADF, common codes
-```
+
 
 ### `<setjmp.h>`
-```
 14.38 setjmp() / longjmp() — non-local goto, exception simulation
 14.39 When to use / not use, stack frame dangers
-```
 
 ### `<signal.h>`
-```
 14.40 signal() — registering signal handlers (unreliable, use sigaction)
 14.41 raise() — sending a signal to yourself
 14.42 Common signals — SIGINT, SIGSEGV, SIGTERM, SIGKILL, SIGPIPE, SIGUSR1/2
 14.43 Async-signal-safe functions — the short list of what's safe in handlers
-```
 
 ### `<stdarg.h>`
-```
 14.44 va_list, va_start, va_arg, va_end, va_copy — variadic function support
-```
 
 ### `<stdalign.h>` / `<stdnoreturn.h>` / `<stdbool.h>` (C11)
-```
 14.45 alignas, alignof, bool, true, false, noreturn
-```
 
 ### `<threads.h>` & `<stdatomic.h>` (C11)
-```
 14.46 thrd_create/join/detach, mtx_*, cnd_* — C11 threads
 14.47 _Atomic, atomic_store/load/fetch_add, memory_order_*
 14.48 atomic_flag — the simplest atomic, spinlock use case
-```
 
 
 
 ## PART 15 — Compilation, Linking & Build
 
-```
 15.1  Compilation units — one .c file = one translation unit
 15.2  Header files — declarations, not definitions (mostly)
 15.3  Header-only libraries — when and why
@@ -529,13 +474,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 15.22 readelf — ELF file inspection
 15.23 strip — removing debug symbols from binary
 15.24 ELF format — sections (.text, .data, .bss, .rodata), segments
-```
 
 
 
 ## PART 16 — Debugging
 
-```
 16.1  gdb basics — run, break, next, step, continue, print, backtrace
 16.2  gdb watchpoints — break on memory change
 16.3  gdb core dumps — analyzing a crash post-mortem
@@ -553,13 +496,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 16.15 /proc/<pid>/maps — memory layout of running process
 16.16 core_pattern — configuring core dump location
 16.17 Debugging without a debugger — logging, bisection, rubber duck
-```
 
 
 
 ## PART 17 — C Patterns & Idioms
 
-```
 17.1  Error return convention — return 0 on success, -1/errno on failure
 17.2  Output parameters — passing pointer to write result into
 17.3  goto cleanup — single-exit resource cleanup pattern
@@ -579,13 +520,11 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 17.17 Safe integer arithmetic — checked math, saturation arithmetic
 17.18 Compile-time assertions — _Static_assert for struct sizes, enum counts
 17.19 X-macro dispatch tables — no-duplication enum + string + handler
-```
 
 
 
 ## PART 18 — C Memory Model & Concurrency Basics
 
-```
 18.1  Sequential consistency — what programs assume, what CPUs do
 18.2  Memory reordering — CPU and compiler both reorder
 18.3  Volatile is not enough for threading — common misconception
@@ -598,7 +537,6 @@ Everything you must know before touching a file descriptor. Ordered from absolut
 18.10 Data races — two concurrent unsynchronized accesses = UB
 18.11 pthreads — POSIX threads (separate deep topic, just awareness here)
 18.12 When you need locking — shared mutable state between threads
-```
 
 
 
@@ -618,4 +556,4 @@ At this point you understand:
 
 Total: **~350 topics across 18 parts** before a single file is opened.
 
-Which part do you want to start with?
+

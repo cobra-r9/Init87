@@ -10,7 +10,6 @@ But I was pretty unsatisfied with the depth and made my own modifications in the
 
 If you want to check out my master index for basics - here is the [basics-master-index](./pathway/01-basics.md)
 
-> [!CAUTION]
 > This is not some course you are going to encounter in random unacademy or coursera. It is my journey of learning C. And this is a **documentation** of my journey.
 
 ## Journey Structure?
@@ -40,7 +39,6 @@ Deals with whatever I have in my [basics-master-index](./pathway/01-basics.md) -
 
 Deals with the *memory side of C* - whatever I have in my [memory-master-index](./pathway/02-pointers.md), starting from what a ram actually is, leading to the ultimate `malloc, calloc, etc` - i.e, the manual memory management side of C programming.
 
-> [!IMPORTANT]
 > Some parts of Basics and Memory Branch may overlap, but for gods sake, they are in different approach. One deals with literal C, the other deals with memory layout.
 
 ## Code Base 
