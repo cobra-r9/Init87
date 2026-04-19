@@ -1,1 +1,3 @@
-# initialised
+# Init87
+
+Let's start with. This is my personal C learning phase soon before entering into the college during my holidays. I fine tuned this pathway for me not just to get a job, but involve in national technical research matters. I have an obsession, from the very beginning when I first started to type a `<html>` in my grade 7. But over years, it accumulated towards - linux systems, kernels, exploits and leverage. While wondering **how do I actually get into this?**, C provided me answer with [`STUXNET`](https://en.wikipedia.com/wiki/stuxnet). That is the first thing in field of low-levels and malwares that literally caused me goosebumps - not the destructive potential, but the way it was engineered to rootkit a PLC board in Simens Controller. Let's leave about me, get into C. This is not for you to learn, but for me to document my journey to decomposing STUXNET. (I think, that should be possible in a 5 year time window - maybe.)
