@@ -1,10 +1,10 @@
 Now I have everything I need. Let me build the real master index.
 
----
+
 
 # C File Manipulation — Master Index
 
----
+
 
 ## TIER 0 — Mental Model (Read First)
 
@@ -21,7 +21,7 @@ Now I have everything I need. Let me build the real master index.
 0.10 The C standard vs. POSIX vs. Linux-specific — what's portable where
 ```
 
----
+
 
 ## TIER 1 — stdio Basics (`<stdio.h>`)
 
@@ -50,7 +50,7 @@ Now I have everything I need. Let me build the real master index.
 1.22  fwide — wide character mode on streams
 ```
 
----
+
 
 ## TIER 2 — POSIX Raw I/O (`<fcntl.h>` `<unistd.h>`)
 
@@ -78,7 +78,7 @@ Now I have everything I need. Let me build the real master index.
 2.21  creat() — historical shorthand for open() with O_CREAT|O_WRONLY|O_TRUNC
 ```
 
----
+
 
 ## TIER 3 — File Metadata & Filesystem Operations
 
@@ -107,7 +107,7 @@ Now I have everything I need. Let me build the real master index.
 3.21  sync_file_range() — selective range flush (Linux-specific)
 ```
 
----
+
 
 ## TIER 4 — Directory Operations
 
@@ -131,7 +131,7 @@ Now I have everything I need. Let me build the real master index.
 4.17  /proc/self/fdinfo — fd details (offset, flags)
 ```
 
----
+
 
 ## TIER 5 — File Control & Descriptor Manipulation (`fcntl`)
 
@@ -148,7 +148,7 @@ Now I have everything I need. Let me build the real master index.
 5.10  ioctl() — device-specific control (not strictly file, but fd-based)
 ```
 
----
+
 
 ## TIER 6 — File Locking
 
@@ -170,7 +170,7 @@ Now I have everything I need. Let me build the real master index.
 6.15  Mandatory locking — mount -o mand, largely broken/deprecated
 ```
 
----
+
 
 ## TIER 7 — Memory-Mapped Files (`mmap`)
 
@@ -204,7 +204,7 @@ Now I have everything I need. Let me build the real master index.
 7.26  Mapping a file for writing — ftruncate then mmap pattern
 ```
 
----
+
 
 ## TIER 8 — I/O Multiplexing & Event-Driven I/O
 
@@ -230,7 +230,7 @@ Now I have everything I need. Let me build the real master index.
 8.19  timerfd — timer expiry via fd
 ```
 
----
+
 
 ## TIER 9 — Asynchronous I/O
 
@@ -254,7 +254,7 @@ Now I have everything I need. Let me build the real master index.
 9.17  Thread-based async I/O — thread pool pattern (simplest approach)
 ```
 
----
+
 
 ## TIER 10 — Zero-Copy & High-Performance Transfers
 
@@ -278,7 +278,7 @@ Now I have everything I need. Let me build the real master index.
 10.17 I/O performance benchmarking — which method wins when
 ```
 
----
+
 
 ## TIER 11 — File Change Notification
 
@@ -301,7 +301,7 @@ Now I have everything I need. Let me build the real master index.
 11.15 kqueue (BSD) — equivalent on macOS/FreeBSD with EVFILT_VNODE
 ```
 
----
+
 
 ## TIER 12 — Sparse Files & Special File Features
 
@@ -323,7 +323,7 @@ Now I have everything I need. Let me build the real master index.
 12.15 File sealing (memfd) — F_SEAL_* flags, immutable memory
 ```
 
----
+
 
 ## TIER 13 — File Descriptors & Process Lifecycle
 
@@ -343,7 +343,7 @@ Now I have everything I need. Let me build the real master index.
 13.13 Detecting fd leaks — valgrind, /proc/self/fd count
 ```
 
----
+
 
 ## TIER 14 — Temporary Files & Atomic Write Patterns
 
@@ -361,7 +361,7 @@ Now I have everything I need. Let me build the real master index.
 14.11 Temp file cleanup — signal handlers, atexit(), unlink-on-open pattern
 ```
 
----
+
 
 ## TIER 15 — Synchronization & Durability
 
@@ -379,7 +379,7 @@ Now I have everything I need. Let me build the real master index.
 15.11 The durability cost — fsync() benchmarks, why databases struggle
 ```
 
----
+
 
 ## TIER 16 — Security & Permissions
 
@@ -399,7 +399,7 @@ Now I have everything I need. Let me build the real master index.
 16.13 Safe path handling — avoiding path traversal (../ attacks)
 ```
 
----
+
 
 ## TIER 17 — Portability & Large File Support
 
@@ -418,7 +418,7 @@ Now I have everything I need. Let me build the real master index.
 17.12 Feature test macros — _POSIX_C_SOURCE, _XOPEN_SOURCE, _GNU_SOURCE
 ```
 
----
+
 
 ## TIER 18 — Error Handling Patterns
 
@@ -440,7 +440,7 @@ Now I have everything I need. Let me build the real master index.
 18.15 Error logging patterns — structured error context propagation
 ```
 
----
+
 
 ## TIER 19 — Practical Patterns & Idioms
 
@@ -472,7 +472,7 @@ Now I have everything I need. Let me build the real master index.
 19.25  Handling SIGPIPE — writing to closed pipe, SA_IGN or handle
 ```
 
----
+
 
 ## TIER 20 — Internals & Kernel Details (Deep Dive)
 
@@ -497,7 +497,7 @@ Now I have everything I need. Let me build the real master index.
 20.18 io_uring internals — shared ring buffers, avoiding syscalls
 ```
 
----
+
 
 ## Quick Reference: Headers, Libraries, Compile Flags
 
@@ -526,14 +526,14 @@ Compile flags:
   -luring                   for io_uring (liburing)
 ```
 
----
+
 
 **193 topics across 20 tiers.** Want to go in order from Tier 0, or jump to a specific tier?
 
 
 No. That index covers **file manipulation only**. C as a whole is an entirely different beast. And even within file manipulation, I left things out. Let me be straight about both:
 
----
+
 
 **What's missing from the file manipulation index:**
 
@@ -563,7 +563,7 @@ No. That index covers **file manipulation only**. C as a whole is an entirely di
 - Compression via `zlib` / `lz4` / `zstd` over file streams
 - `/dev/null`, `/dev/zero`, `/dev/urandom` — special file behaviors
 
----
+
 
 **And that index covers zero of actual C:**
 
@@ -588,7 +588,7 @@ File I/O is just one domain. C the language also encompasses:
 - Debugging — `gdb`, `valgrind`, `AddressSanitizer`, `UBSan`, core dumps
 - C11 / C17 / C23 — new features, `_Generic`, `_Static_assert`, `_Noreturn`
 
----
+
 
 So: the index is a complete map of **one branch** of one domain of C. We haven't even started on the language itself.
 

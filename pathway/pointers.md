@@ -1,12 +1,12 @@
 Now I have everything. Here's the complete master index.
 
----
+
 
 # C Pointers & Memory — Complete Master Index
 
 Everything from the hardware up to the most advanced pointer techniques in C.
 
----
+
 
 ## TIER 0 — The Hardware Foundation (What Memory Actually Is)
 
@@ -26,7 +26,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 0.13  Memory-mapped I/O — devices appear as memory addresses
 ```
 
----
+
 
 ## TIER 1 — Virtual Memory (The OS Abstraction)
 
@@ -58,7 +58,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 1.25  Canonical addresses — on x86-64, bits 48-63 must sign-extend bit 47
 ```
 
----
+
 
 ## TIER 2 — Process Address Space Layout
 
@@ -85,7 +85,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 2.20  VDSO / vsyscall — kernel-mapped code for fast syscalls (gettimeofday, etc.)
 ```
 
----
+
 
 ## TIER 3 — The Stack in Depth
 
@@ -119,7 +119,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 3.27  Tail call optimization — callee reuses caller's frame
 ```
 
----
+
 
 ## TIER 4 — The Heap in Depth
 
@@ -154,7 +154,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 4.28  Electric fence / DUMA — each allocation on its own page, detect overflows
 ```
 
----
+
 
 ## TIER 5 — Pointer Fundamentals
 
@@ -180,7 +180,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 5.19  Simulating pass-by-reference — passing &x, modifying *x in function
 ```
 
----
+
 
 ## TIER 6 — Pointer Arithmetic
 
@@ -203,7 +203,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 6.16  Two-pointer technique — classic algorithm pattern
 ```
 
----
+
 
 ## TIER 7 — Pointer Declarations (All Forms)
 
@@ -226,7 +226,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 7.16  typedef to simplify — typedef int (*Comparator)(const void*, const void*)
 ```
 
----
+
 
 ## TIER 8 — const and Pointers
 
@@ -244,7 +244,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 8.11  Why const propagation matters — compiler optimizations rely on it
 ```
 
----
+
 
 ## TIER 9 — void* and Generic Pointers
 
@@ -261,7 +261,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 9.10  NULL as void* — (void*)0
 ```
 
----
+
 
 ## TIER 10 — Arrays and Pointers
 
@@ -286,7 +286,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 10.18 String as array of char — null-terminated, every string is a char*
 ```
 
----
+
 
 ## TIER 11 — Function Pointers
 
@@ -309,7 +309,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 11.16 Computed goto (GCC) — labels as values, pointer to label, dispatch table
 ```
 
----
+
 
 ## TIER 12 — Struct Pointers and Memory Layout
 
@@ -338,7 +338,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 12.22 Bit field pointers — you cannot take address of a bit field
 ```
 
----
+
 
 ## TIER 13 — Memory Alignment in Depth
 
@@ -363,7 +363,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 13.18 Page alignment — mmap returns page-aligned (4096 bytes)
 ```
 
----
+
 
 ## TIER 14 — Strict Aliasing
 
@@ -391,7 +391,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 14.16 Detecting violations — TySan (type sanitizer, experimental)
 ```
 
----
+
 
 ## TIER 15 — Type Punning
 
@@ -413,7 +413,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 15.15 -fno-strict-aliasing workaround — disables optimization, not recommended
 ```
 
----
+
 
 ## TIER 16 — restrict
 
@@ -432,7 +432,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 16.12 restrict is C99 — not in C89, not in C++ (but compilers support __restrict)
 ```
 
----
+
 
 ## TIER 17 — volatile and Pointers
 
@@ -452,7 +452,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 17.13 Common mistake — using volatile for thread communication (use _Atomic)
 ```
 
----
+
 
 ## TIER 18 — Pointer Provenance (Abstract Machine Model)
 
@@ -472,7 +472,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 18.13 Ongoing standardization — C23 / C2y still debating the exact model
 ```
 
----
+
 
 ## TIER 19 — Pointer Bugs in Depth
 
@@ -528,7 +528,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 19.28 Detecting leaks — valgrind --leak-check=full, ASan leak sanitizer
 ```
 
----
+
 
 ## TIER 20 — Memory Debugging Tools
 
@@ -557,7 +557,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 20.22 Sparse — semantic checker used by Linux kernel
 ```
 
----
+
 
 ## TIER 21 — Dynamic Memory — The Full API
 
@@ -579,7 +579,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 21.15 mallinfo() / mallinfo2() — heap statistics struct
 ```
 
----
+
 
 ## TIER 22 — Custom Allocators
 
@@ -605,7 +605,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 22.19 Obstack — GNU library for stack-discipline arena allocator
 ```
 
----
+
 
 ## TIER 23 — Advanced Pointer Techniques
 
@@ -633,7 +633,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 23.21 Capability pointers — hardware-enforced bounds checking (CHERI architecture)
 ```
 
----
+
 
 ## TIER 24 — Pointer Safety Patterns & Idioms
 
@@ -660,7 +660,7 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 24.20 Fuzzing pointer-heavy code — libFuzzer, AFL++ catch memory bugs
 ```
 
----
+
 
 ## TIER 25 — Pointers in the C Memory Model (Concurrency)
 
@@ -682,13 +682,13 @@ Everything from the hardware up to the most advanced pointer techniques in C.
 25.15 TSan — detecting pointer races at runtime
 ```
 
----
+
 
 ## Quick Reference: What Lives Where
 
 ```
 REGION       | WHO ALLOCATES | WHO FREES     | LIFETIME
--------------|---------------|---------------|--------------------
+-------|---------------|---------------|--------------------
 Registers    | Compiler      | Compiler      | Within expression
 Stack        | Compiler      | Compiler      | Until function returns
 BSS/Data     | OS at load    | OS at exit    | Entire program
@@ -698,7 +698,7 @@ mmap         | You (mmap)    | You (munmap)  | Until you unmap it
 
 ```
 POINTER TYPE      | WHAT IT POINTS TO         | VALID AS LONG AS
-------------------|---------------------------|----------------------
+------------|---------------------------|----------------------
 Stack pointer     | Local variable            | Function is on stack
 Heap pointer      | malloc'd allocation       | Not freed
 Static pointer    | Global/static variable    | Always
@@ -708,7 +708,7 @@ Dangling          | Freed/gone memory         | Never
 Wild              | Garbage address           | Never
 ```
 
----
+
 
 **~280 topics across 25 tiers.** This is the complete map from transistors to lock-free pointer algorithms.
 
