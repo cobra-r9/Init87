@@ -4,12 +4,13 @@
 // day: sunday
 // time: 10:20 
 // description: This is the first program in the Init87 project for learning C. Basically - hello world.
+// target: introduction to c. 
 //=============================================================================
 
 
 // this is a comment in c.
 // this is not my first c code either
-// for traditional reasons anyway
+// for traditional reasons anyway - start again
 // use : c pre proecessor to include standard input and out put library
 // include <...> searchs the system wide include paths.
 // include "..." first searches the current directory - falls back to the systemwide path 
