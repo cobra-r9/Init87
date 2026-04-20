@@ -1,0 +1,2 @@
+- [] learn about extern completely.
+- [] learn about __restrict, what it does. 
