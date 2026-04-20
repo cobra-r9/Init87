@@ -3,84 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="{{ page.description | default: site.description | strip_html | truncate: 160 }}">
-
-  <title>
-    {% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}
-  </title>
-
-  <!-- Fonts -->
+  <title>{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <!-- Main stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
-
-  {% feed_meta %}
-  {% seo %}
 </head>
-
 <body>
 
-  <!-- ── Header ───────────────────────────────────────── -->
   <header class="site-header">
-    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
-
-    <nav class="site-nav">
-      <a href="{{ '/' | relative_url }}"
-         {% if page.url == '/' %}class="active"{% endif %}>Home</a>
-
-      {% for item in site.navigation %}
-        <a href="{{ item.url | relative_url }}"
-           {% if page.url contains item.url %}class="active"{% endif %}>
-          {{ item.title }}
-        </a>
-      {% endfor %}
-
-      <a href="{{ '/about' | relative_url }}"
-         {% if page.url contains 'about' %}class="active"{% endif %}>About</a>
+    <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <nav class="header-nav">
+      <a href="{{ '/about' | relative_url }}" {% if page.url contains 'about' %}class="active"{% endif %}>About</a>
+      {% if site.github_username %}
+      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a>
+      {% endif %}
     </nav>
   </header>
 
-  <!-- ── Main ─────────────────────────────────────────── -->
-  <main class="page-content" aria-label="Content">
-    <div class="wrapper">
+  <div class="page-shell">
 
-      {% if page.title %}
-      <header class="post-header">
-        <h1 class="post-title">{{ page.title | escape }}</h1>
+    <aside class="site-sidebar">
+      <div class="sidebar-section">
+        <span class="sidebar-label">Getting Started</span>
+        <ul class="sidebar-nav">
+          <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Overview</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <span class="sidebar-label">Part 0 — Foundations</span>
+        <ul class="sidebar-nav">
+          <li><a href="{{ '/part0/' | relative_url }}" {% if page.url contains '/part0/' %}class="active"{% endif %}>Index</a></li>
+          <li><a href="{{ '/part0/0.0' | relative_url }}" {% if page.url contains '0.0' %}class="active"{% endif %}>0.0</a></li>
+          <li><a href="{{ '/part0/0.1' | relative_url }}" {% if page.url contains '0.1' %}class="active"{% endif %}>0.1</a></li>
+          <li><a href="{{ '/part0/0.2' | relative_url }}" {% if page.url contains '0.2' %}class="active"{% endif %}>0.2</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <span class="sidebar-label">Part 1</span>
+        <ul class="sidebar-nav">
+          <li><a href="{{ '/part1/' | relative_url }}" {% if page.url contains '/part1/' %}class="active"{% endif %}>Index</a></li>
+          <li><a href="{{ '/part1/1.0' | relative_url }}" {% if page.url contains '1.0' %}class="active"{% endif %}>1.0</a></li>
+          <li><a href="{{ '/part1/1.1' | relative_url }}" {% if page.url contains '1.1' %}class="active"{% endif %}>1.1</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <span class="sidebar-label">Pathway</span>
+        <ul class="sidebar-nav">
+          <li><a href="{{ '/pathway/01-basics' | relative_url }}" {% if page.url contains '01-basics' %}class="active"{% endif %}>Basics</a></li>
+          <li><a href="{{ '/pathway/02-pointers' | relative_url }}" {% if page.url contains '02-pointers' %}class="active"{% endif %}>Pointers</a></li>
+          <li><a href="{{ '/pathway/03-file-ops' | relative_url }}" {% if page.url contains '03-file-ops' %}class="active"{% endif %}>File Ops</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <span class="sidebar-label">Memory</span>
+        <ul class="sidebar-nav">
+          {% for i in (0..4) %}
+          <li><a href="{{ '/memory/Part0/0.' | append: i | relative_url }}" {% if page.url contains '0.' %}class="active"{% endif %}>0.{{ i }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </aside>
+
+    <main class="page-content">
+      <div class="content-inner">
+
+        {% if page.title %}
+        <h1>{{ page.title }}</h1>
         {% if page.date %}
-        <p class="post-meta">
-          {{ page.date | date: "%Y-%m-%d" }}
-          {% if page.categories.size > 0 %}
-            &nbsp;·&nbsp;
-            {% for cat in page.categories %}
-              <span>{{ cat }}</span>{% unless forloop.last %}, {% endunless %}
-            {% endfor %}
-          {% endif %}
-        </p>
+        <div class="post-meta">
+          <span>{{ page.date | date: "%Y-%m-%d" }}</span>
+          {% for tag in page.tags %}
+          <span class="tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
         {% endif %}
-      </header>
-      {% endif %}
+        {% endif %}
 
-      {{ content }}
+        {{ content }}
 
-    </div>
-  </main>
+      </div>
+    </main>
 
-  <!-- ── Footer ───────────────────────────────────────── -->
+  </div>
+
   <footer class="site-footer">
-    <span>{{ site.title | escape }}</span>
-    &nbsp;·&nbsp;
-    <span>{{ 'now' | date: "%Y" }}</span>
-    {% if site.github_username %}
-      &nbsp;·&nbsp;
-      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">
-        gh/{{ site.github_username }}
-      </a>
-    {% endif %}
+    <span>{{ site.title }}</span>
+    <span>{{ 'now' | date: "%Y" }} · <a href="https://github.com/{{ site.github_username }}">rudv-ar</a></span>
   </footer>
 
 </body>
 </html>
+
