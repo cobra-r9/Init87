@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b0c10">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    <title>
+      {% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}
+    </title>
+  </head>
+  <body>
+
+    <header class="page-header" role="banner">
+      <h1 class="project-name">
+        <a href="{{ '/' | relative_url }}" style="color:inherit;border:none;background:none;padding:0;">
+          {{ site.title }}
+        </a>
+      </h1>
+      {% if site.description %}
+        <h2 class="project-tagline">{{ site.description }}</h2>
+      {% endif %}
+      {% if site.github.is_project_page %}
+        <a href="{{ site.github.repository_url }}" class="btn">View on GitHub</a>
+      {% endif %}
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      {{ content }}
+
+      <footer class="site-footer">
+        {% if site.author.github %}
+          <span class="site-footer-credits">
+            <a href="https://github.com/{{ site.author.github }}">{{ site.author.name }}</a>
+            &nbsp;·&nbsp;
+            <a href="https://github.com/{{ site.author.github }}/{{ site.github.repository_name }}">source</a>
+          </span>
+        {% endif %}
+      </footer>
+    </main>
+
+    <script>
+    (function() {
+      document.addEventListener('DOMContentLoaded', function() {
+
+        // Inject language labels
+        document.querySelectorAll('.highlighter-rouge').forEach(function(block) {
+          var langClass = Array.from(block.classList).find(function(c) {
+            return c.startsWith('language-');
+          });
+          if (langClass) {
+            var lang = langClass.replace('language-', '');
+            if (lang && lang !== 'plaintext') {
+              block.setAttribute('data-lang', lang);
+            }
+          }
+        });
+
+        // Inject copy buttons
+        document.querySelectorAll('.main-content .highlighter-rouge').forEach(function(block) {
+          var pre = block.querySelector('pre');
+          if (!pre) return;
+
+          var btn = document.createElement('button');
+          btn.className = 'code-copy-btn';
+          btn.textContent = 'copy';
+          btn.setAttribute('aria-label', 'Copy code');
+
+          btn.addEventListener('click', function() {
+            var code = pre.querySelector('code');
+            var text = code ? code.innerText : pre.innerText;
+
+            navigator.clipboard.writeText(text).then(function() {
+              btn.textContent = 'copied!';
+              btn.classList.add('copied');
+              setTimeout(function() {
+                btn.textContent = 'copy';
+                btn.classList.remove('copied');
+              }, 1800);
+            }).catch(function() {
+              var ta = document.createElement('textarea');
+              ta.value = text;
+              ta.style.cssText = 'position:fixed;opacity:0;';
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+              btn.textContent = 'copied!';
+              btn.classList.add('copied');
+              setTimeout(function() {
+                btn.textContent = 'copy';
+                btn.classList.remove('copied');
+              }, 1800);
+            });
+          });
+
+          block.appendChild(btn);
+        });
+
+      });
+    })();
+    </script>
+
+  </body>
+</html>

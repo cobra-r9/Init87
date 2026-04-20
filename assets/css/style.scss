@@ -3,38 +3,62 @@
 
 @import "{{ site.theme }}";
 
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Outfit:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,400&family=Outfit:wght@300;400;600&display=swap');
 
-
+/* ================================================================
+   TOKENS
+================================================================ */
 :root {
   --void:     #0b0c10;
   --surface:  #111318;
   --surface2: #181b22;
+  --surface3: #1d2130;
   --border:   #1e2230;
   --border2:  #252a38;
 
-  --cyan:     #18e0ff;
-  --cyan-dim: #0a7a8f;
-  --cyan-glow: rgba(24, 224, 255, 0.15);
+  --cyan:          #18e0ff;
+  --cyan-dim:      #0a7a8f;
+  --cyan-glow:     rgba(24, 224, 255, 0.15);
+  --cyan-glow-sm:  rgba(24, 224, 255, 0.07);
 
-  --magenta:     #f03cf2;
-  --magenta-dim: #7a1d7b;
-  --magenta-glow: rgba(240, 60, 242, 0.12);
+  --magenta:       #f03cf2;
+  --magenta-dim:   #7a1d7b;
+  --magenta-glow:  rgba(240, 60, 242, 0.12);
 
-  --amber:    #f7c948;
-  --amber-dim:#7a6020;
+  --amber:         #f7c948;
+  --amber-dim:     #7a6020;
+  --amber-glow:    rgba(247, 201, 72, 0.1);
+
+  --green:         #4ade80;
+  --green-dim:     #1f5c36;
+
+  --red:           #f87171;
+  --red-dim:       #5c1f1f;
+
+  --blue:          #60a5fa;
+  --blue-dim:      #1f3a5c;
+
+  --orange:        #fb923c;
 
   --text:     #d4dbe8;
+  --text-dim: #8a93a8;
   --muted:    #5a6480;
   --subtle:   #3a4060;
 
   --mono: 'JetBrains Mono', monospace;
   --sans: 'Outfit', sans-serif;
   --radius: 4px;
+  --radius-lg: 8px;
 }
 
-* { box-sizing: border-box; }
+/* ================================================================
+   RESET
+================================================================ */
+*, *::before, *::after { box-sizing: border-box; }
 
+/* ================================================================
+   BASE
+================================================================ */
 body {
   background: var(--void) !important;
   color: var(--text) !important;
@@ -43,7 +67,7 @@ body {
   line-height: 1.75 !important;
 }
 
-/* Subtle scanline — barely visible, just vibe */
+/* Scanline overlay */
 body::after {
   content: "";
   position: fixed;
@@ -52,31 +76,44 @@ body::after {
     180deg,
     transparent 0px,
     transparent 3px,
-    rgba(0, 0, 0, 0.06) 3px,
-    rgba(0, 0, 0, 0.06) 4px
+    rgba(0,0,0,0.05) 3px,
+    rgba(0,0,0,0.05) 4px
   );
   pointer-events: none;
   z-index: 9999;
 }
 
-/* ---- HEADER ---- */
+/* ================================================================
+   HEADER
+================================================================ */
 header, .page-header {
   background: var(--surface) !important;
   background-image: none !important;
   border-bottom: 1px solid var(--border) !important;
-  padding: 2.2rem 2rem !important;
+  padding: 2.4rem 2rem !important;
   text-align: left !important;
   position: relative !important;
   overflow: hidden !important;
 }
 
-/* Diagonal accent line in header */
 header::before {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
   background: linear-gradient(90deg, var(--cyan), var(--magenta), transparent);
+}
+
+/* Faint grid bg in header */
+header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(24,224,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24,224,255,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
 }
 
 .project-name {
@@ -86,9 +123,10 @@ header::before {
   color: var(--text) !important;
   text-shadow: none !important;
   letter-spacing: -0.02em !important;
+  position: relative;
+  z-index: 1;
 }
 
-/* Glowing underscore cursor */
 .project-name::after {
   content: "_";
   color: var(--cyan);
@@ -106,6 +144,8 @@ header::before {
   font-size: 0.82rem !important;
   color: var(--muted) !important;
   margin-top: 6px !important;
+  position: relative;
+  z-index: 1;
 }
 
 .project-tagline::before {
@@ -113,7 +153,9 @@ header::before {
   color: var(--cyan-dim);
 }
 
-/* ---- BUTTONS ---- */
+/* ================================================================
+   BUTTONS
+================================================================ */
 .btn {
   font-family: var(--mono) !important;
   font-size: 0.78rem !important;
@@ -128,6 +170,8 @@ header::before {
   box-shadow: none !important;
   text-shadow: none !important;
   transition: all 0.18s ease !important;
+  position: relative;
+  z-index: 1;
 }
 
 .btn:hover {
@@ -147,15 +191,19 @@ header::before {
   box-shadow: 0 0 16px rgba(240,60,242,0.2) !important;
 }
 
-/* ---- MAIN CONTENT ---- */
+/* ================================================================
+   MAIN CONTENT
+================================================================ */
 .main-content {
   background: var(--void) !important;
   color: var(--text) !important;
   font-family: var(--sans) !important;
-  max-width: 860px !important;
+  max-width: 880px !important;
 }
 
-/* ---- HEADINGS ---- */
+/* ================================================================
+   HEADINGS
+================================================================ */
 .main-content h1,
 .main-content h2,
 .main-content h3,
@@ -164,7 +212,7 @@ header::before {
   font-weight: 700 !important;
   letter-spacing: -0.02em !important;
   border-bottom: none !important;
-  margin-top: 2.2rem !important;
+  margin-top: 2.4rem !important;
 }
 
 .main-content h1 {
@@ -196,18 +244,23 @@ header::before {
   color: var(--magenta-dim);
 }
 
-/* ---- BODY TEXT ---- */
-.main-content p {
-  color: var(--text) !important;
-  font-family: var(--sans) !important;
+.main-content h4 {
+  font-size: 0.9rem !important;
+  color: var(--amber) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em !important;
 }
 
-.main-content strong {
-  color: var(--text) !important;
-  font-weight: 600 !important;
-}
+/* ================================================================
+   BODY TEXT + ELEMENTS
+================================================================ */
+.main-content p       { color: var(--text) !important; font-family: var(--sans) !important; }
+.main-content strong  { color: var(--text) !important; font-weight: 600 !important; }
+.main-content em      { color: var(--text-dim) !important; }
 
-/* ---- LINKS ---- */
+/* ================================================================
+   LINKS
+================================================================ */
 .main-content a {
   color: var(--cyan) !important;
   text-decoration: none !important;
@@ -222,7 +275,9 @@ header::before {
   padding: 0 3px !important;
 }
 
-/* ---- INLINE CODE ---- */
+/* ================================================================
+   INLINE CODE
+================================================================ */
 .main-content code {
   font-family: var(--mono) !important;
   font-size: 0.83em !important;
@@ -233,42 +288,210 @@ header::before {
   border-radius: var(--radius) !important;
 }
 
-/* ---- CODE BLOCKS ---- */
-.main-content pre {
+/* ================================================================
+   CODE BLOCKS  (Rouge: .highlighter-rouge > .highlight > pre)
+================================================================ */
+.main-content .highlighter-rouge,
+.main-content div.highlight {
+  position: relative !important;
+  margin: 28px 0 !important;
+}
+
+/* Language label — driven by data-lang on the wrapper div,
+   set automatically by the JS snippet below. */
+.main-content .highlighter-rouge[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0; right: 44px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan-dim);
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-top: none;
+  border-right: none;
+  padding: 2px 8px;
+  border-radius: 0 0 0 var(--radius);
+  z-index: 2;
+}
+
+/* Copy button placeholder — real button injected by JS */
+.main-content .code-copy-btn {
+  position: absolute !important;
+  top: 8px !important; right: 10px !important;
+  font-family: var(--mono) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  color: var(--muted) !important;
+  background: var(--surface2) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: var(--radius) !important;
+  padding: 3px 9px !important;
+  cursor: pointer !important;
+  z-index: 3 !important;
+  transition: all 0.15s ease !important;
+  line-height: 1.5 !important;
+}
+
+.main-content .code-copy-btn:hover {
+  color: var(--cyan) !important;
+  border-color: var(--cyan-dim) !important;
+  background: var(--cyan-glow-sm) !important;
+}
+
+.main-content .code-copy-btn.copied {
+  color: var(--green) !important;
+  border-color: var(--green-dim) !important;
+}
+
+.main-content pre,
+.main-content .highlight pre {
   background: var(--surface) !important;
   border: 1px solid var(--border2) !important;
   border-left: 3px solid var(--cyan) !important;
-  border-radius: 0 var(--radius) var(--radius) 0 !important;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0 !important;
   padding: 18px 20px !important;
+  padding-top: 14px !important;
+  overflow-x: auto !important;
   position: relative !important;
-  box-shadow: 0 0 30px rgba(24, 224, 255, 0.04) !important;
+  box-shadow:
+    0 0 30px rgba(24, 224, 255, 0.04),
+    inset 0 1px 0 rgba(255,255,255,0.02) !important;
+  margin: 0 !important;
 }
 
-.main-content pre::before {
-  content: "~/init87 $";
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--cyan-dim);
-  margin-bottom: 10px;
-  letter-spacing: 0.04em;
-}
-
-.main-content pre code {
+.main-content pre code,
+.main-content .highlight pre code {
   background: transparent !important;
   border: none !important;
   color: var(--text) !important;
   font-size: 0.86rem !important;
   padding: 0 !important;
+  line-height: 1.65 !important;
 }
 
-/* ---- BLOCKQUOTE ---- */
+/* ================================================================
+   ROUGE SYNTAX TOKEN COLORS
+   Mapped to your palette for a cohesive look.
+================================================================ */
+
+/* Keywords  →  cyan */
+.highlight .k,
+.highlight .kd,
+.highlight .kn,
+.highlight .kp,
+.highlight .kr,
+.highlight .kc { color: var(--cyan) !important; font-style: normal !important; }
+
+/* Keyword type  →  soft cyan */
+.highlight .kt { color: #80eeff !important; }
+
+/* Names / identifiers  →  text */
+.highlight .n  { color: var(--text) !important; }
+
+/* Function / method names  →  amber */
+.highlight .nf,
+.highlight .fm { color: var(--amber) !important; }
+
+/* Class names  →  magenta */
+.highlight .nc { color: var(--magenta) !important; }
+
+/* Built-ins  →  light blue */
+.highlight .nb { color: var(--blue) !important; }
+
+/* Tag names (HTML/XML)  →  cyan */
+.highlight .nt { color: var(--cyan) !important; }
+
+/* Attribute names  →  text-dim */
+.highlight .na { color: var(--text-dim) !important; }
+
+/* Namespace  →  cyan-dim */
+.highlight .nn { color: var(--cyan-dim) !important; }
+
+/* Variable names  →  text */
+.highlight .nv,
+.highlight .vc,
+.highlight .vg,
+.highlight .vi { color: var(--text) !important; }
+
+/* Decorators / annotations  →  orange */
+.highlight .nd { color: var(--orange) !important; }
+
+/* Strings  →  amber */
+.highlight .s,
+.highlight .sa,
+.highlight .sb,
+.highlight .sc,
+.highlight .s1,
+.highlight .s2,
+.highlight .si,
+.highlight .sx { color: var(--amber) !important; }
+
+/* String escape  →  orange */
+.highlight .se { color: var(--orange) !important; }
+
+/* String regex  →  green */
+.highlight .sr { color: var(--green) !important; }
+
+/* Numbers  →  magenta-tinted */
+.highlight .m,
+.highlight .mi,
+.highlight .mf,
+.highlight .mh,
+.highlight .mo,
+.highlight .mb,
+.highlight .il { color: #d87bff !important; }
+
+/* Operators  →  cyan-dim */
+.highlight .o,
+.highlight .ow { color: var(--cyan-dim) !important; }
+
+/* Punctuation  →  muted */
+.highlight .p  { color: var(--muted) !important; }
+
+/* Comments  →  muted, italic */
+.highlight .c,
+.highlight .c1,
+.highlight .cm,
+.highlight .cs { color: var(--muted) !important; font-style: italic !important; }
+
+/* Preprocessor / shebang  →  magenta-dim */
+.highlight .cp,
+.highlight .cpf { color: var(--magenta-dim) !important; }
+
+/* Boolean / constants  →  cyan */
+.highlight .kc { color: var(--cyan) !important; }
+
+/* Error  →  red */
+.highlight .err { color: var(--red) !important; background: var(--red-dim) !important; }
+
+/* Generic output / prompts */
+.highlight .go  { color: var(--muted) !important; font-style: italic !important; }
+.highlight .gp  { color: var(--cyan-dim) !important; font-weight: 700 !important; user-select: none; }
+.highlight .gs  { font-weight: 700 !important; }
+.highlight .ge  { font-style: italic !important; }
+.highlight .gr  { color: var(--red) !important; }
+.highlight .gh  { color: var(--cyan) !important; font-weight: 700 !important; }
+.highlight .gu  { color: var(--magenta) !important; }
+
+/* Diff  */
+.highlight .gi  { color: var(--green) !important; background: rgba(74,222,128,0.07) !important; }
+.highlight .gd  { color: var(--red) !important;   background: rgba(248,113,113,0.07) !important; }
+
+/* ================================================================
+   BLOCKQUOTE  (callout style)
+================================================================ */
 .main-content blockquote {
   border-left: 3px solid var(--magenta) !important;
   background: var(--surface) !important;
   padding: 14px 20px !important;
   margin: 28px 0 !important;
-  border-radius: 0 var(--radius) var(--radius) 0 !important;
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0 !important;
   box-shadow: 0 0 20px rgba(240, 60, 242, 0.05) !important;
 }
 
@@ -278,7 +501,9 @@ header::before {
   font-style: italic !important;
 }
 
-/* ---- LISTS ---- */
+/* ================================================================
+   LISTS
+================================================================ */
 .main-content ul li::marker { color: var(--cyan-dim); }
 .main-content ol li::marker {
   color: var(--cyan-dim);
@@ -286,16 +511,19 @@ header::before {
   font-size: 0.85em;
 }
 
-/* ---- TABLES ---- */
+/* ================================================================
+   TABLES
+================================================================ */
 .main-content table {
   border-collapse: collapse !important;
   width: 100% !important;
   font-size: 0.9rem !important;
+  margin: 28px 0 !important;
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden !important;
 }
 
-.main-content thead {
-  background: var(--surface) !important;
-}
+.main-content thead { background: var(--surface) !important; }
 
 .main-content th {
   font-family: var(--mono) !important;
@@ -314,19 +542,16 @@ header::before {
   border: 1px solid var(--border) !important;
 }
 
-.main-content tr:nth-child(even) td {
-  background: var(--surface) !important;
-}
+.main-content tr:nth-child(even) td { background: var(--surface) !important; }
+.main-content tr:hover td           { background: var(--surface2) !important; }
 
-.main-content tr:hover td {
-  background: var(--surface2) !important;
-}
-
-/* ---- HR ---- */
+/* ================================================================
+   HR
+================================================================ */
 .main-content hr {
   border: none !important;
   border-top: 1px solid var(--border) !important;
-  margin: 36px 0 !important;
+  margin: 40px 0 !important;
   position: relative !important;
 }
 
@@ -343,7 +568,44 @@ header::before {
   letter-spacing: 0.2em;
 }
 
-/* ---- FOOTER ---- */
+/* ================================================================
+   KBD  (keyboard shortcut)
+================================================================ */
+.main-content kbd {
+  font-family: var(--mono) !important;
+  font-size: 0.78em !important;
+  color: var(--text) !important;
+  background: var(--surface2) !important;
+  border: 1px solid var(--border2) !important;
+  border-bottom-width: 2px !important;
+  padding: 1px 7px !important;
+  border-radius: var(--radius) !important;
+}
+
+/* ================================================================
+   CALLOUT BOXES  (via blockquote class convention)
+   Usage in markdown:
+     > **NOTE** text here
+   For typed callouts add a span.callout-tip / .callout-warn in HTML
+================================================================ */
+.main-content .callout-tip {
+  border-left-color: var(--green) !important;
+  box-shadow: 0 0 20px rgba(74,222,128,0.05) !important;
+}
+
+.main-content .callout-warn {
+  border-left-color: var(--amber) !important;
+  box-shadow: 0 0 20px rgba(247,201,72,0.05) !important;
+}
+
+.main-content .callout-danger {
+  border-left-color: var(--red) !important;
+  box-shadow: 0 0 20px rgba(248,113,113,0.05) !important;
+}
+
+/* ================================================================
+   FOOTER
+================================================================ */
 .site-footer {
   background: var(--surface) !important;
   border-top: 1px solid var(--border) !important;
@@ -362,7 +624,9 @@ header::before {
   background: transparent !important;
 }
 
-/* ---- SCROLLBAR ---- */
+/* ================================================================
+   SCROLLBAR
+================================================================ */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--void); }
 ::-webkit-scrollbar-thumb {
@@ -371,7 +635,13 @@ header::before {
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--cyan-dim); }
 
-/* ---- SELECTION ---- */
+/* Code block horizontal scroll */
+.main-content pre::-webkit-scrollbar { height: 4px; }
+.main-content pre::-webkit-scrollbar-thumb { background: var(--border2); }
+
+/* ================================================================
+   SELECTION
+================================================================ */
 ::selection {
   background: var(--cyan-glow);
   color: var(--cyan);
