@@ -1,3 +1,9 @@
+---
+layout: default 
+title: "Init87" 
+description: "A learning phase to completely internalise the very essence till the memory of C. Not for mere job, but just to understand why C is C and why C runs the way it runs. Not a surface work anymore. I treat every piece of C code as a potential vulnerable and exploitable code. This is the first file in my journey."
+---
+
 # What this is - My Journalctl for C
 
 Let's start with. This is my personal C learning phase soon before entering into the college during my holidays. I fine tuned this pathway for me not just to get a job, but involve in national technical research matters. I have an obsession, from the very beginning when I first started to type a `<html>` in my grade 7. But over years, it accumulated towards - linux systems, kernels, exploits and leverage. While wondering **how do I actually get into this?**, C provided me answer with [STUXNET](https://en.wikipedia.com/wiki/stuxnet). That is the first thing in field of low-levels and malwares that literally caused me goosebumps - not the destructive potential, but the way it was engineered to rootkit a PLC board in Simens Controller. Let's leave about me, get into C. This is not for you to learn, but for me to document my journey to decomposing STUXNET. (I think, that should be possible in a 5 year time window - maybe.)
