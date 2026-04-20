@@ -20,8 +20,7 @@
 
 title: Init87
 email: cobra.rev.9@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
-A learning phase to completely internalise the very essence till the memory of C. Not for mere job, but just to understand why C is C and why C runs the way it runs. Not a surface work anymore. I treat every piece of C code as a potential vulnerable and exploitable code. This is the first file in my journey.
+description: "A learning phase to completely internalise the very essence till the memory of C. Not for mere job, but just to understand why C is C and why C runs the way it runs. Not a surface work anymore. I treat every piece of C code as a potential vulnerable and exploitable code. This is the first file in my journey."
 baseurl: "/Init87" # the subpath of your site, e.g. /blog
 url: "https://cobra-r9.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: none
