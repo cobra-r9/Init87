@@ -1,29 +1,8 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-
 title: Init87
 email: cobra.rev.9@gmail.com
-description: "A learning phase to completely internalise the very essence till the memory of C. Not for mere job, but just to understand why C is C and why C runs the way it runs. Not a surface work anymore. I treat every piece of C code as a potential vulnerable and exploitable code. This is the first file in my journey."
-baseurl: "/Init87" # the subpath of your site, e.g. /blog
-url: "https://cobra-r9.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: none
+description: "A learning phase to completely internalise the very essence till the memory of C."
+baseurl: "/Init87"
+url: "https://cobra-r9.github.io"
 github_username:  cobra-r9
 
 # Build settings
@@ -31,28 +10,26 @@ theme: minima
 plugins:
   - jekyll-feed
 
+# Sidebar Structure - Edit this to add new pages
+sidebar:
+  - title: "Getting Started"
+    links:
+      - text: "Overview"
+        url: "/"
+  - title: "Part 0 — Foundations"
+    links:
+      - text: "Index"
+        url: "/part0/"
+      - text: "0.0 Initializing"
+        url: "/part0/0.0"
+      - text: "0.1 Entry Point"
+        url: "/part0/0.1"
+      - text: "0.2 Toolchain"
+        url: "/part0/0.2"
+  - title: "Memory"
+    links:
+      - text: "Pointers & Layout"
+        url: "/pathway/02-pointers"
+      - text: "The Stack"
+        url: "/memory/Part0/0.1"
 
-navigation:
-  - title: Pathway
-    url: /pathway/
-  - title: Memory
-    url: /memory/ 
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
