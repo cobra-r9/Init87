@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-sidebar="open">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -229,13 +229,13 @@
 (function () {
   'use strict';
 
-  const html    = document.documentElement;
-  const toggle  = document.getElementById('sidebarToggle');
-  const SKEY    = 'init87_sidebar';
+  const html   = document.documentElement;
+  const toggle = document.getElementById('sidebarToggle');
+  const SKEY   = 'init87_sidebar';
 
-  /* ── Restore sidebar state ── */
-  const stored = localStorage.getItem(SKEY);
-  if (stored) html.dataset.sidebar = stored;
+  /* ── Restore sidebar state (default: open) ── */
+  const stored = localStorage.getItem(SKEY) ?? 'open';
+  html.dataset.sidebar = stored;
 
   /* ── Toggle sidebar ── */
   toggle.addEventListener('click', function () {
@@ -277,4 +277,3 @@
 
 </body>
 </html>
-
