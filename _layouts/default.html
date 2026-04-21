@@ -10,6 +10,29 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}" />
+<style> 
+/* ── Sidebar toggle icons ── */
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;        /* inherits from topbar text color */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.toggle-icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+[data-sidebar="open"]   .toggle-icon--open  { display: none; }
+[data-sidebar="open"]   .toggle-icon--close { display: block; }
+[data-sidebar="closed"] .toggle-icon--open  { display: block; }
+[data-sidebar="closed"] .toggle-icon--close { display: none; }
+</style>
 </head>
 
 <body>
