@@ -9,15 +9,30 @@ theme: minima
 plugins:
   - jekyll-feed
 
+permalink: /posts/:slug/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
 sidebar:
   - title: "Memory"
     id: "memory"
     links:
-      - text: "0.0 — Memory Init"
+      - text: "0.0 - Start Here"
         url: "/memory/part0/0.0"
-  - title: "Part 0 — Foundations"
-    id: "part0"
+  - title: "C Basics"
+    id: "basics"
     links:
-      - text: "0.0 — Initializing"
+      - text: "0.0 - Start Here"
         url: "/part0/0.0"
-
+  - title: "Posts"
+    id: "posts"
+    links:
+      - text: "My Errors"
+        url: "/errors"
+      - text: "My Doubts"
+        url: "/doubts"
