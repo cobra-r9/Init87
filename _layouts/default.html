@@ -10,6 +10,227 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}" />
+<script defer>
+// gh-include.js — drop this once, use <gh-include> anywhere
+// Usage: <gh-include src="user/repo/branch/path/to/file.c"></gh-include>
+// Optional attrs: lang="c" | label="custom title" | lines="10-30"
+
+(function () {
+  const HLJS_CSS = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css";
+  const HLJS_JS  = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js";
+
+  // Catppuccin Mocha palette
+  const C = {
+    base:    "#0a0b10",
+    mantle:  "#11121a",
+    crust:   "#0d0e16",
+    surface0:"#1e1e2e",
+    surface1:"#292a3a",
+    overlay0:"#6c7086",
+    text:    "#cdd6f4",
+    subtext1:"#bac2de",
+    mauve:   "#cba6f7",
+    blue:    "#89b4fa",
+    green:   "#a6e3a1",
+    red:     "#f38ba8",
+    peach:   "#fab387",
+    yellow:  "#f9e2af",
+  };
+
+  // Inject highlight.js once
+  let hljsReady = false;
+  let hljsCallbacks = [];
+
+  function loadHljs(cb) {
+    if (hljsReady) { cb(); return; }
+    hljsCallbacks.push(cb);
+    if (document.getElementById("__gh_hljs__")) return;
+
+    const link = document.createElement("link");
+    link.rel = "stylesheet"; link.href = HLJS_CSS;
+    document.head.appendChild(link);
+
+    const s = document.createElement("script");
+    s.id = "__gh_hljs__"; s.src = HLJS_JS;
+    s.onload = () => { hljsReady = true; hljsCallbacks.forEach(f => f()); hljsCallbacks = []; };
+    document.head.appendChild(s);
+  }
+
+  // Detect lang from extension
+  function detectLang(path) {
+    const ext = path.split(".").pop().toLowerCase();
+    return {
+      c:"c", h:"c", cpp:"cpp", cc:"cpp", cxx:"cpp",
+      js:"javascript", ts:"typescript", jsx:"javascript", tsx:"typescript",
+      py:"python", rs:"rust", go:"go", sh:"bash", bash:"bash",
+      html:"html", css:"css", json:"json", md:"markdown",
+      java:"java", kt:"kotlin", swift:"swift", zig:"zig",
+      makefile:"makefile", mk:"makefile",
+    }[ext] || "plaintext";
+  }
+
+  // Extract filename from path
+  function filename(path) {
+    return path.split("/").pop();
+  }
+
+  // Language badge color
+  function langColor(lang) {
+    return {
+      c: C.blue, cpp: C.blue, rust: C.peach, python: C.yellow,
+      javascript: C.yellow, typescript: C.blue, go: C.green,
+      bash: C.green, html: C.peach, css: C.mauve,
+    }[lang] || C.overlay0;
+  }
+
+  class GhInclude extends HTMLElement {
+    connectedCallback() {
+      this._render();
+    }
+
+    static get observedAttributes() { return ["src", "lang", "label", "lines"]; }
+    attributeChangedCallback() { if (this.isConnected) this._render(); }
+
+    _render() {
+      const src    = this.getAttribute("src") || "";
+      const label  = this.getAttribute("label") || filename(src);
+      const lang   = this.getAttribute("lang") || detectLang(src);
+      const lines  = this.getAttribute("lines") || null; // e.g. "5-20"
+
+      if (!src) {
+        this.innerHTML = `<span style="color:${C.red}">gh-include: missing src</span>`;
+        return;
+      }
+
+      const rawUrl = `https://raw.githubusercontent.com/${src}`;
+      const ghUrl  = `https://github.com/${src.replace(/\/[^/]+\/[^/]+\//, "/blob/")}`;
+
+      this.innerHTML = this._skeleton(label, lang);
+      const codeEl = this.querySelector("code");
+      const lineEl = this.querySelector(".gh-lines");
+
+      fetch(rawUrl)
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.text();
+        })
+        .then(text => {
+          let content = text;
+          let lineInfo = "";
+
+          if (lines) {
+            const [from, to] = lines.split("-").map(Number);
+            const all = text.split("\n");
+            const start = Math.max(1, from || 1) - 1;
+            const end   = Math.min(all.length, to || all.length);
+            content = all.slice(start, end).join("\n");
+            lineInfo = `lines ${start + 1}–${end}`;
+          }
+
+          if (lineEl && lineInfo) {
+            lineEl.textContent = lineInfo;
+            lineEl.style.display = "inline";
+          }
+
+          loadHljs(() => {
+            codeEl.className = `language-${lang}`;
+            codeEl.textContent = content;
+            window.hljs.highlightElement(codeEl);
+          });
+        })
+        .catch(err => {
+          codeEl.textContent = `// Failed to load: ${rawUrl}\n// ${err.message}`;
+          codeEl.style.color = C.red;
+        });
+
+      // Copy button logic
+      this.querySelector(".gh-copy").addEventListener("click", () => {
+        const btn = this.querySelector(".gh-copy");
+        navigator.clipboard.writeText(codeEl.textContent).then(() => {
+          btn.textContent = "copied!";
+          btn.style.color = C.green;
+          setTimeout(() => { btn.textContent = "copy"; btn.style.color = C.overlay0; }, 1500);
+        });
+      });
+    }
+
+    _skeleton(label, lang) {
+      const lc = langColor(lang);
+      return `
+      <div style="
+        background:${C.mantle};
+        border:1px solid ${C.surface1};
+        border-radius:8px;
+        overflow:hidden;
+        font-family:'JetBrainsMono Nerd Font', 'JetBrains Mono', 'Fira Code', monospace;
+        font-size:13px;
+        margin:1em 0;
+        box-shadow:0 4px 24px rgba(0,0,0,0.4);
+      ">
+        <!-- Header bar -->
+        <div style="
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          padding:8px 14px;
+          background:${C.crust};
+          border-bottom:1px solid ${C.surface1};
+          gap:10px;
+        ">
+          <div style="display:flex;align-items:center;gap:10px;min-width:0;">
+            <span style="
+              background:${lc}22;
+              color:${lc};
+              border:1px solid ${lc}55;
+              border-radius:4px;
+              padding:1px 7px;
+              font-size:11px;
+              letter-spacing:0.05em;
+              flex-shrink:0;
+            ">${lang}</span>
+            <span style="
+              color:${C.subtext1};
+              font-size:12px;
+              overflow:hidden;
+              text-overflow:ellipsis;
+              white-space:nowrap;
+            ">${label}</span>
+            <span class="gh-lines" style="
+              display:none;
+              color:${C.overlay0};
+              font-size:11px;
+            "></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;flex-shrink:0;">
+            <button class="gh-copy" style="
+              background:none;
+              border:none;
+              cursor:pointer;
+              color:${C.overlay0};
+              font-family:inherit;
+              font-size:11px;
+              padding:0;
+              transition:color 0.15s;
+            ">copy</button>
+          </div>
+        </div>
+        <!-- Code area -->
+        <div style="overflow-x:auto;padding:0;">
+          <pre style="margin:0;padding:14px 18px;background:${C.mantle};"><code style="
+            font-family:inherit;
+            font-size:13px;
+            line-height:1.6;
+            background:transparent;
+          ">Loading ${label}…</code></pre>
+        </div>
+      </div>`;
+    }
+  }
+
+  customElements.define("gh-include", GhInclude);
+})();
+    
+</script>
 <style> 
 /* ── Sidebar toggle icons ── */
 .sidebar-toggle {

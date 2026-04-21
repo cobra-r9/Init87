@@ -7,9 +7,6 @@ tags: [pointers, segfault, ub]
 
 Tried this:
 
-```c
-int *ptr = NULL;
-printf("%d\n", *ptr);
-```
+<gh-include src="cobra-r9/Init87/main/part0/initv2.c"></gh-include>
 
 This is just a demo code. Don't worry to check if everything is alright. Alright.
