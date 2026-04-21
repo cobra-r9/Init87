@@ -1,22 +1,113 @@
 ---
 layout: default
 title: My Doubts
-description: "Questions, clarifications, and things that didn't click at first. Some dangling questions in my main branch comments that are unanswered, but now answered. Good for a future reference."
+description: "Questions, clarifications, and things that didn't click at first. Here is a list of doubts I had, and now clarified, maybe usefull for future reference. C with doubts is just surface level learning. So I try to clarify the doubt ASAP."
+part: "Posts"
 ---
 
+<style>
+  .post-list { max-width: var(--content-max); }
+
+  .post-list__empty {
+    font-size: 12px;
+    color: var(--t2);
+    padding: 24px 0;
+  }
+
+  .post-card {
+    display: block;
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    background: var(--s1);
+    border: 1px solid var(--b0);
+    border-left: 3px solid transparent;
+    border-radius: var(--radius-lg);
+    color: var(--t1);
+    text-decoration: none;
+    transition:
+      border-color var(--t-fast),
+      background var(--t-fast),
+      transform var(--t-fast);
+  }
+  .post-card:hover {
+    border-color: var(--b1);
+    border-left-color: var(--ac2);
+    background: var(--s2);
+    transform: translateX(3px);
+    color: var(--t0);
+  }
+
+  .post-card__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .post-card__meta time {
+    font-size: 10px;
+    color: var(--t2);
+    letter-spacing: 0.06em;
+  }
+
+  .post-card__tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    color: var(--ac);
+    background: var(--ac-dim);
+    border: 1px solid rgba(0, 217, 196, 0.2);
+    letter-spacing: 0.04em;
+  }
+
+  .post-card__title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--t0);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .post-card__desc {
+    font-size: 12px;
+    color: var(--t1);
+    line-height: 1.65;
+  }
+
+  .post-list__type-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ac2);
+    margin-bottom: 20px;
+  }
+  .post-list__type-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--b0);
+  }
+</style>
+
 <div class="post-list">
-{% assign doubt_posts = site.posts | where: "type", "doubt" %}
-{% if doubt_posts.size == 0 %}
-  <p class="post-list__empty">No doubt posts yet.</p>
-{% endif %}
-{% for post in doubt_posts %}
-  <a class="post-card" href="{{ post.url | prepend: site.baseurl }}">
-    <div class="post-card__meta">
-      <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b %Y" }}</time>
-      {% for tag in post.tags %}<span class="post-card__tag">#{{ tag }}</span>{% endfor %}
-    </div>
-    <div class="post-card__title">{{ post.title }}</div>
-    {% if post.description %}<div class="post-card__desc">{{ post.description }}</div>{% endif %}
-  </a>
-{% endfor %}
+  <div class="post-list__type-label">&#x25CF; Doubts</div>
+  {% assign doubt_posts = site.posts | where: "type", "doubt" %}
+  {% if doubt_posts.size == 0 %}
+    <p class="post-list__empty">No doubt posts yet.</p>
+  {% endif %}
+  {% for post in doubt_posts %}
+    <a class="post-card" href="{{ post.url | prepend: site.baseurl }}">
+      <div class="post-card__meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b %Y" }}</time>
+        {% for tag in post.tags %}<span class="post-card__tag">#{{ tag }}</span>{% endfor %}
+      </div>
+      <div class="post-card__title">{{ post.title }}</div>
+      {% if post.description %}<div class="post-card__desc">{{ post.description }}</div>{% endif %}
+    </a>
+  {% endfor %}
 </div>
