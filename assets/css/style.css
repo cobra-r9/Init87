@@ -922,3 +922,7 @@ a:hover { color: var(--lk-h); }
   .page-nav      { grid-template-columns: 1fr; }
 }
 
+[data-sidebar="open"]   .toggle-icon--open  { display: none; }
+[data-sidebar="open"]   .toggle-icon--close { display: block; }
+[data-sidebar="closed"] .toggle-icon--open  { display: block; }
+[data-sidebar="closed"] .toggle-icon--close { display: none; }
