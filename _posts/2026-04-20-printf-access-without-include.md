@@ -37,7 +37,7 @@ All these stuffs are designated in the `something.h` header file.
 
 As it's name suggests, the `<stdio.h>` (note the < and > opening and closings), it is present in the /usr/include directory, and has the exact function signature (**AKA : function declaration**) for the `printf` function. 
 
-> It is good to note that : cat /usr/include/stdio.h | grep "int printf" will return you the function declaration **and not the definition** of the printf function. So, more accurately, the stdio.h only tells the compiler that - **hey : this is how the printf's signature looks like.** and the linux dynamic linker will search for the printf in the glibc.so (GNU C standard library) and fill the holes.
+> It is good to note that : `cat /usr/include/stdio.h | grep "int printf"` will return you the function declaration **and not the definition** of the printf function. So, more accurately, the stdio.h only tells the compiler that - **hey : this is how the printf's signature looks like.** and the linux dynamic linker will search for the printf in the glibc.so (GNU C standard library) and fill the holes.
 
 ## But which holes? 
 
@@ -63,7 +63,7 @@ note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
 **or provide a declaration of printf**. Yes, you should provide a declaration of printf, either : copy pasta from the include headers. 
 
 ```bash 
-cat /usr/include/stdio.h \| grep "int printf"
+cat /usr/include/stdio.h | grep "int printf"
 ```
 
 You get an output like this : (exactly this)
