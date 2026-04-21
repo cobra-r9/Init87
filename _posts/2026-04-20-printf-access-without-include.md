@@ -62,7 +62,7 @@ note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
 **or provide a declaration of printf**. Yes, you should provide a declaration of printf, either : copy pasta from the include headers. 
 
 ```bash 
-cat /usr/include/stdio.h | grep "int printf"
+cat /usr/include/stdio.h \| grep "int printf"
 ```
 
 You get an output like this : (exactly this)
