@@ -18,7 +18,8 @@ Before getting inside, we need to know answer for one question :
 
 It is nothing but the C Pre Processor (CPP) command or function or whatever I would like to call, which just as the name indicates, does the copy paste mechanism: find the include : 
 
-1) **<file.h>** : First find in the /usr/include directory in the linux file system.
+1) **\<file.h\>** : First find in the /usr/include directory in the linux file system.
+
 2) **"file.h"** : First search the current directory ./ for the header file, if not present, then fallback to the /usr/include directory for C header file. 
 
 ## What actually does `something.h` contains? 
