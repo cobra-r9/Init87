@@ -1,103 +1,279 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-sidebar="open">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | escape }}" />
-  <meta property="og:title" content="{{ page.title | default: site.title }}" />
-  <meta property="og:description" content="{{ page.description | default: site.description }}" />
-  <meta property="og:url" content="{{ page.url | prepend: site.baseurl | prepend: site.url }}" />
-  <title>
-    {% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}
-  </title>
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}" />
+  <title>{% if page.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | prepend: site.baseurl }}" />
 </head>
-<body>
 
-  <!-- ── Top bar ────────────────────────────────────────── -->
-  <header class="topbar">
-    <a class="topbar__brand" href="{{ site.baseurl }}/">
-      <span class="topbar__sigil">&gt;_</span>{{ site.title }}
-    </a>
-    <span class="topbar__meta">
+<body>
+<div class="layout">
+
+  <!-- ████ TOPBAR ████ -->
+  <header class="topbar" role="banner">
+
+    <div class="topbar__left">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" title="Toggle sidebar">
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+      </button>
+
+      <a class="brand" href="{{ site.baseurl }}/">
+        <span class="brand__sigil">&gt;_</span>
+        <span class="brand__name">{{ site.title }}</span>
+      </a>
+    </div>
+
+    <div class="topbar__center">
+      {% if page.title %}
+        <span class="topbar__crumb">
+          <span class="crumb-sep">{% if page.part %}{{ page.part }} /{% endif %}</span>
+          <span class="crumb-current">{{ page.title }}</span>
+        </span>
+      {% endif %}
+    </div>
+
+    <div class="topbar__right">
       {% if page.date %}
-        <time datetime="{{ page.date | date_to_xmlschema }}">
-          {{ page.date | date: "%A, %d %b %Y" }}
+        <time class="topbar__date" datetime="{{ page.date | date_to_xmlschema }}">
+          {{ page.date | date: "%d %b %Y" }}
         </time>
       {% endif %}
-    </span>
+      <a class="topbar__gh" href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </a>
+    </div>
+
   </header>
+  <!-- /TOPBAR -->
 
-  <!-- ── Shell ─────────────────────────────────────────── -->
-  <div class="shell">
+  <!-- ████ BODY GRID ████ -->
+  <div class="body-grid">
 
-    <!-- ── Sidebar ───────────────────────────────────── -->
-    <nav class="sidebar" aria-label="Documentation navigation">
-      <div class="sidebar__header">
-        <span class="sidebar__label">// nav</span>
+    <!-- ████ SIDEBAR ████ -->
+    <aside class="sidebar" id="sidebar" aria-label="Site navigation">
+      <div class="sidebar__inner">
+
+        <div class="sidebar__head">
+          <span class="sidebar__site-label">{{ site.title }}</span>
+          <span class="sidebar__site-sub">documentation</span>
+        </div>
+
+        <nav class="sidebar__nav">
+          {% for section in site.sidebar %}
+            <div class="sidebar__section" data-id="{{ section.id }}">
+
+              <button class="sidebar__section-btn" data-section="{{ section.id }}" aria-expanded="true">
+                <svg class="chevron" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>{{ section.title }}</span>
+              </button>
+
+              <ul class="sidebar__links" role="list">
+                {% for link in section.links %}
+                  <li>
+                    <a href="{{ link.url | prepend: site.baseurl }}"
+                       class="sidebar__link{% if page.url == link.url %} is-active{% endif %}">
+                      <span class="link__dot"></span>
+                      <span class="link__text">{{ link.text }}</span>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+
+            </div>
+          {% endfor %}
+        </nav>
+
+        <div class="sidebar__footer-links">
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" class="sidebar__ext-link">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+            github/{{ site.github_username }}
+          </a>
+          <a href="mailto:{{ site.email }}" class="sidebar__ext-link">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            {{ site.email }}
+          </a>
+        </div>
+
       </div>
+    </aside>
+    <!-- /SIDEBAR -->
 
-      {% for section in site.sidebar %}
-        <details class="sidebar__section" open>
-          <summary class="sidebar__section-title">{{ section.title }}</summary>
-          <ul class="sidebar__links">
-            {% for link in section.links %}
-              <li>
-                <a href="{{ link.url | prepend: site.baseurl }}"
-                   class="sidebar__link{% if page.url == link.url %} sidebar__link--active{% endif %}">
-                  {{ link.text }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </details>
-      {% endfor %}
+    <!-- ████ MAIN ████ -->
+    <main class="main" id="main">
+      <div class="content-wrap">
 
-      <div class="sidebar__footer">
-        <a class="sidebar__gh" href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">
-          ↗ github/{{ site.github_username }}
-        </a>
-      </div>
-    </nav>
+        <!-- Page Hero -->
+        {% if page.title %}
+        <div class="page-hero">
+          <div class="page-hero__inner">
+            <div class="page-hero__glow"></div>
 
-    <!-- ── Content ───────────────────────────────────── -->
-    <main class="content" id="main">
-
-      {% if page.title %}
-        <div class="content__header">
-          <h1 class="content__title">{{ page.title }}</h1>
-
-          {% if page.description %}
-            <p class="content__desc">{{ page.description }}</p>
-          {% endif %}
-
-          <div class="content__chips">
-            {% if page.date %}
-              <span class="chip">
-                📅 {{ page.date | date: "%A · %d %b %Y" }}
-              </span>
+            {% if page.part %}
+              <span class="page-hero__part">{{ page.part }}</span>
             {% endif %}
-            {% if page.tags %}
-              {% for tag in page.tags %}
-                <span class="chip chip--tag">#{{ tag }}</span>
-              {% endfor %}
+
+            <h1 class="page-hero__title">{{ page.title }}</h1>
+
+            {% if page.description %}
+              <p class="page-hero__desc">{{ page.description }}</p>
+            {% endif %}
+
+            <div class="page-hero__meta">
+              {% if page.date %}
+                <div class="meta-chip">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <time datetime="{{ page.date | date_to_xmlschema }}">
+                    {{ page.date | date: "%A, %d %B %Y" }}
+                  </time>
+                </div>
+              {% endif %}
+              {% if page.tags %}
+                {% for tag in page.tags %}
+                  <span class="meta-chip meta-chip--tag">#{{ tag }}</span>
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Article -->
+        <article class="article">
+          {{ content }}
+        </article>
+
+        <!-- Page nav (prev/next placeholder) -->
+        <div class="page-nav">
+          <div class="page-nav__prev">
+            {% if page.prev_url %}
+              <a href="{{ page.prev_url }}">
+                <span class="page-nav__label">← Previous</span>
+                <span class="page-nav__title">{{ page.prev_title }}</span>
+              </a>
             {% endif %}
           </div>
-
-          <hr class="content__rule" />
+          <div class="page-nav__next">
+            {% if page.next_url %}
+              <a href="{{ page.next_url }}">
+                <span class="page-nav__label">Next →</span>
+                <span class="page-nav__title">{{ page.next_title }}</span>
+              </a>
+            {% endif %}
+          </div>
         </div>
-      {% endif %}
 
-      <article class="content__body">
-        {{ content }}
-      </article>
-
+      </div>
     </main>
+    <!-- /MAIN -->
 
-  </div><!-- /.shell -->
+  </div>
+  <!-- /BODY GRID -->
+
+  <!-- ████ FOOTER ████ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+
+      <div class="footer__brand">
+        <span class="footer__sigil">&gt;_</span>
+        <span class="footer__name">{{ site.title }}</span>
+        <p class="footer__tagline">{{ site.description }}</p>
+      </div>
+
+      <div class="footer__cols">
+        <div class="footer__col">
+          <span class="footer__col-head">Navigate</span>
+          {% for section in site.sidebar %}
+            {% for link in section.links %}
+              <a href="{{ link.url | prepend: site.baseurl }}" class="footer__link">{{ link.text }}</a>
+            {% endfor %}
+          {% endfor %}
+        </div>
+
+        <div class="footer__col">
+          <span class="footer__col-head">Source</span>
+          <a href="https://github.com/{{ site.github_username }}/{{ site.title | downcase }}" target="_blank" rel="noopener" class="footer__link">Repository</a>
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener" class="footer__link">Profile</a>
+          <a href="mailto:{{ site.email }}" class="footer__link">Contact</a>
+        </div>
+
+        <div class="footer__col">
+          <span class="footer__col-head">Stack</span>
+          <span class="footer__link footer__link--static">Jekyll</span>
+          <span class="footer__link footer__link--static">GitHub Pages</span>
+          <span class="footer__link footer__link--static">Markdown</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer__bar">
+      <span class="footer__copy">© {{ 'now' | date: "%Y" }} {{ site.github_username }}. Built with Jekyll.</span>
+      <span class="footer__copy">{{ site.url }}{{ site.baseurl }}</span>
+    </div>
+  </footer>
+  <!-- /FOOTER -->
+
+</div><!-- /.layout -->
+
+<script>
+(function () {
+  'use strict';
+
+  const html    = document.documentElement;
+  const toggle  = document.getElementById('sidebarToggle');
+  const SKEY    = 'init87_sidebar';
+
+  /* ── Restore sidebar state ── */
+  const stored = localStorage.getItem(SKEY);
+  if (stored) html.dataset.sidebar = stored;
+
+  /* ── Toggle sidebar ── */
+  toggle.addEventListener('click', function () {
+    const next = html.dataset.sidebar === 'open' ? 'closed' : 'open';
+    html.dataset.sidebar = next;
+    localStorage.setItem(SKEY, next);
+  });
+
+  /* ── Section collapses ── */
+  document.querySelectorAll('.sidebar__section-btn').forEach(function (btn) {
+    var id  = btn.dataset.section;
+    var sec = btn.closest('.sidebar__section');
+    var key = 'init87_sec_' + id;
+
+    /* restore */
+    if (localStorage.getItem(key) === '1') {
+      sec.classList.add('is-collapsed');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+
+    btn.addEventListener('click', function () {
+      var collapsed = sec.classList.toggle('is-collapsed');
+      btn.setAttribute('aria-expanded', String(!collapsed));
+      localStorage.setItem(key, collapsed ? '1' : '0');
+    });
+  });
+
+  /* ── Mobile: close sidebar when a link is clicked ── */
+  document.querySelectorAll('.sidebar__link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (window.innerWidth < 768) {
+        html.dataset.sidebar = 'closed';
+        localStorage.setItem(SKEY, 'closed');
+      }
+    });
+  });
+})();
+</script>
 
 </body>
 </html>

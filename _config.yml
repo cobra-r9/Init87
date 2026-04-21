@@ -11,10 +11,12 @@ plugins:
 
 sidebar:
   - title: "Memory"
+    id: "memory"
     links:
       - text: "0.0 — Memory Init"
         url: "/memory/part0/0.0.md"
   - title: "Part 0 — Foundations"
+    id: "part0"
     links:
       - text: "0.0 — Initializing"
         url: "/part0/0.0.md"

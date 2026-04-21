@@ -1,7 +1,10 @@
 ---
-layout: default 
-title: "Init87" 
+layout: default
+title: "Init87"
 description: "A learning phase to completely internalise the very essence till the memory of C. Not for mere job, but just to understand why C is C and why C runs the way it runs. Not a surface work anymore. I treat every piece of C code as a potential vulnerable and exploitable code. This is the first file in my journey."
+date: 2025-04-20
+part: "Introduction"
+tags: [c, setup, toolchain]
 ---
 
 # What this is - My Journalctl for C
