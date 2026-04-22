@@ -65,4 +65,27 @@ Find the hex value, then :
 - convert: 3 C A D B 3 
 - represent in hex notation: `0x3CADB3`
 
-Done, this is how we convert stuffs. 
+Done, this is how we convert stuffs.
+
+## Representing Powers of 2 
+
+In the C programming, most of the buffers are in the form of powers of 2, ie, have value like 1024, 2048, 4096, etc. These can be compactly notated as powers of 2. 
+
+> Note that the binary notation of 2 is 0010. The truth about this is : 2<sup>1</sup> = 1 followed by 1 zero and left padded = 0010.
+
+Similarly, we can express any power of two as the following : 
+
+- 2<sup>n</sup> = 1 followed by n zeros. 
+- In hexadecimal, one hex 0 is equivalent to 4 binary zeros, ie 0 base 16 = 0000 base 2.
+- Hence, n = i + 4j, where we can write 2<sup>n</sup> as 2<sup>i + 4j</sup>.
+- If i is 0, 1, 2, 3 : we have the leading digit in the hex as 1, 2, 4, 8. When it goes to i = 4, it becomes exactly represented as hex base 16.
+- Note that we are reverse engineering why exactly n = i + 4j and not 2i + 2j or something like that. Because, hex has base 16, which equals 2<sup>4</sup> and a hex can represent exactly 4 binary digits.
+- Therefore, 2<sup>n</sup> can be represented in hex as 2<sup>i</sup> followed by j hex zeros. 
+
+Congrats!. Successfull reverse engineering. 
+
+=> 2<sup>11</sup> = 2<sup>3 + 2.4</sup> = in hex : 0x2<sup>i</sup>0000... j times.
+=> which is i = 3, j = 2, hence 2<sup>11</sup> = 0x800 
+
+> Finally, accomplished the doubt session, ie, a question session.
+
