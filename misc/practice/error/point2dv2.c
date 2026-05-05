@@ -99,3 +99,7 @@ Point *make_point(int x, int y) {
 // init x: 1477482336; init y: 5 - Undefined Behaviour; here it is accessed after freeing the point3; yet freeing does not mean zeroing the page, it just clears the exising memory with random data. So, when we call upon a freed space, it results in garbage dump, accessed via a dangling pointer.
 // free(): double free detected in tcache 2 - Double Free errored; 
 // fish: Job 1, './point2dv2' terminated by signal SIGABRT (Abort); the kernel sends a SIGABRT to the shell running the C program - ie the fish shell catches the SIGABRT and aborts the program from continue running. 
+
+
+//======================================= Doubts remain, see them in the doubts section.
+
