@@ -123,7 +123,7 @@ This converts the binary float representation into a decimal ASCII string before
 
 The tradeoff is that the file becomes larger and human-readable, but you lose precision and you can no longer `read()` the bytes straight back into a `float` variable without parsing. For binary data that programs need to read back efficiently, raw binary (what you did) is the correct approach. For data that humans need to read or inspect, text conversion is the right call. Knowing which to choose — and why — is the essence of understanding I/O at this level.
 
-<gh-include src="cobra-r9/Init87/main/misc/files/open-writev1.c"></gh-include>
+<gh-include src="cobra-r9/Init87/main/misc/files/exp2/open-writev1.c"></gh-include>
 
 ### This is the End of this Doubts Section.
 Good Luck Understanding this. Here is the original code for what I have done. 
