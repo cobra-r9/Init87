@@ -1,7 +1,7 @@
 ---
 title: "Raw Bytes vs Text- Why Extensions Means Nothing to Unix"
 description: "A doubt from the file I/O session : why does the file command call new_out.txt data but output.txt ASCII text, even though both share the same .txt extension?"
-type: doubts
+type: doubt
 tags: [file-io, ieee754, magic-bytes, write-syscall]
 ---
 
