@@ -28,11 +28,6 @@ int main(void) {
     printf("The values of : \nchar = %c\nshort = %hd\nint = %d\nlong = %ld\nlong long = %lld\n\n", a, b, c, d, e);
     printf("The sizeof on the primary int types : sizeof(char) = %zu\nsizeof(short) = %zu\nsizeof(int) = %zu\nsizeof(long) = %zu\nsizeof(long long) = %zu\n\n", sizeof(a), sizeof(b), sizeof(c), sizeof(d), sizeof(e));
 
-
-
-
-
-
     printf("Alright : %c\n", 65);
     // this is gonna print A. because the 65 is ascii value of A, having same bytes. 
     // information = bits + context. 
