@@ -18,7 +18,6 @@ int main(void) {
     // but the c standard itself does not gaurentee you that 1 byte is equal to 8 bits. 
     // it can be accessed from the <limits.h> via CHAR_BIT, which is a macro defined there.
     // it specifies the number of bits in a char. 
-    
     // let's define some variables 
     char a = 66; 
     short b = 125;
@@ -26,7 +25,10 @@ int main(void) {
     long d = 89232332;
     long long e = 99999999999999;
 
-    printf("The values of : \nchar = %c\nshort = %hd\nint = %d\nlong = %ld\nlong long = %lld\n", a, b, c, d, e);
+    printf("The values of : \nchar = %c\nshort = %hd\nint = %d\nlong = %ld\nlong long = %lld\n\n", a, b, c, d, e);
+    printf("The sizeof on the primary int types : sizeof(char) = %zu\nsizeof(short) = %zu\nsizeof(int) = %zu\nsizeof(long) = %zu\nsizeof(long long) = %zu\n\n", sizeof(a), sizeof(b), sizeof(c), sizeof(d), sizeof(e));
+
+
 
 
 
