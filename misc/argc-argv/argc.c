@@ -73,3 +73,6 @@ int main(int argc, char *argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
+
+// all doubts regarding this will be clarified in the doubts section.
+// I pretty sure have no idea what was overwritten and what was past argv?
