@@ -21,4 +21,5 @@ Additionally, I use this journal for taking notes and jot down concepts and TLDR
 >[!IMPORTANT]
 > For more resources for learning any programming : see my [Dochub](https://github.com/cobra-r9/Dochub) which has books for `lua`, `c`, `bash scripting`, `linux fundamentals` and `computer systems`.
 
+From now on (notice the commit of this modification), basic C concepts will not be commented.
 
