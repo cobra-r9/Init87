@@ -1,4 +1,4 @@
-// name : formatting.c 
+// name : snprintfv1.c 
 // date : 2026-06-14 
 // std  : C 23 standard 
 

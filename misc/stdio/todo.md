@@ -1,2 +1,2 @@
-- doubt clarification for snprintf stuff in formatting.c file.
+- doubt clarification for snprintf stuff in snprintfv1.c file.
 - 
