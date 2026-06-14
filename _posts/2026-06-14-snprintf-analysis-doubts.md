@@ -7,7 +7,7 @@ tags: [wformat-truncation, warning]
 
 Here is the exact code what I tried :
 
-<gh-include src="cobra-r9/Init87/misc/stdio/snprintfv1.c"></gh-include>
+<gh-include src="cobra-r9/Init87/main/misc/stdio/snprintfv1.c"></gh-include>
 
 
 
