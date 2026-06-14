@@ -1,0 +1,2 @@
+- doubt clarification for snprintf stuff in formatting.c file.
+- 
