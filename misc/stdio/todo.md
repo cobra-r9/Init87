@@ -1,2 +1,2 @@
 - doubt clarification for snprintf stuff in snprintfv1.c file.
-- 
+- error analysis of what is happening under the hood of the fopen function. (fopen.c) in errors dir. 
