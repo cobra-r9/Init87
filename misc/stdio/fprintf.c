@@ -34,13 +34,21 @@ int main(void) {
     // How do I literally check if the fprintf wrote everything? and not partially?
     // we shall learn more about error handling later on. 
 
-    fprintf(file, payload, 10, 10, 9, 34, 34, 10, 9, 34, 34, 10, 10);
+    int return_value = fprintf(file, payload, 10, 10, 9, 34, 34, 10, 9, 34, 34, 10, 10);
+    // on failure, the fprintf returns a negative value. we can compare it to do a primitive check on it. 
+    if (return_value < 0) {
+        perror("fprintf failed : ");
+        fclose(file);
+        return EXIT_FAILURE;
+    }
 
     // never forget to close a file. 
     fclose(file);
 
     // come one, the power of my system on me!!!.
-    system("gcc hello_via_fprintf.c -o out && ./out && rm out");
+    if (return_value > 0) {
+        system("gcc hello_via_fprintf.c -o out && ./out && rm out");
+    }
 
     return EXIT_SUCCESS;
 }
