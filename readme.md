@@ -23,3 +23,4 @@ Additionally, I use this journal for taking notes and jot down concepts and TLDR
 
 From now on (notice the commit of this modification), basic C concepts will not be commented.
 
+If there were any todo in any of the directories, it implies that jobs are not done yet.
