@@ -29,7 +29,17 @@ Therefore, the *idiomatic* check is `ferror(stream)`, not just comparing the ret
 
 ## What exactly is happening under hood 
 
-Here we are stepping into the `glibc` part. 
+Here we are stepping into the `glibc` part. Though I did not completely grasp everything I referred and needed at least some intermediate knowledge in the **syscall territory**, as far as I can explain in understandable words :
+
+> We should note this : As soon as we call the `fwrite` - **it is not going to do some magic to write directly to our disks.** It follows a sequence of steps as shown below. 
+
+1) `fwrite` will be calling `_IO_fwrite`, just like that one in the `fopen`. Remember? `_IO_fopen`. This is the glibc's internal entry point. It is going to compute the total byte count (that is `size` * `nmemb`) and **hands it to stream's write logic.**
+
+2) **Copy into the `FILE's` internal buffer** : That is every `FILE*` has a `_IO_FILE` struct with buffer pointers(`_IO_write_ptr`, `_IO_write_base`, `_IO_write_end`). If the data fits in the remaining buffer space, `fwrite` is literally just a `memcpy` into that buffer. No syscall happens. Our 8 bytes against a buffer size of several KB never leave the userspace at this point. But when does the syscall happen?
+
+3) **Buffering mode decides when a syscall happens.** A stream opened on a regular file with `fopen` is fully buffered by default - that is characters are transmitted to the file in blocks of arbitrary size. The buffer actually gets flushed to the file (that is the data is written to the disck) only when the file fills up or when the stream is closed, or when the program exits normally. Everything, else - stays as a buffer. 
+
+4) **The syscall at the final moment :** `fclose` calls `_IO_file_close_it`, which calls the `_IO_do_write`, which calls the actual `write` syscall, copying the buffer to the kernel's page cache. This is the point where a real I/O error (disk full, EROFS, quota, etc.) could occur. 
 
 ## The corrected code. 
 
