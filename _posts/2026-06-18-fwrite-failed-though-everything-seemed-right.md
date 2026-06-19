@@ -7,7 +7,7 @@ tags: [perror, stdio, fwrite]
 
 ## fopen and analysis
 
-**Here is the exact code what I wrote : **
+**Here is the exact code what I wrote :**
 
 You may try to figure out what the error is in this code. Why did my `fwrite` produce error stating `Success`.
 
