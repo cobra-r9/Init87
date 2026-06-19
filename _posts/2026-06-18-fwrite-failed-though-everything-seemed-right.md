@@ -1,6 +1,6 @@
 ---
 title: "A bug or something? - fwrite failed."
-description: "This is where most class of other bugs appear. When you miss something very small in the logic. And this page will explain what it is."
+description: "This is where most class of other bugs appear. When we miss something very small in the logic. And this page will explain what it is."
 type: error
 tags: [perror, stdio, fwrite]
 ---
@@ -9,7 +9,7 @@ tags: [perror, stdio, fwrite]
 
 **Here is the exact code what I wrote :**
 
-You may try to figure out what the error is in this code. Why did my `fwrite` produce error stating `Success`.
+we may try to figure out what the error is in this code. Why did my `fwrite` produce error stating `Success`.
 
 <gh-include src="cobra-r9/Init87/main/misc/stdio/errors/fwrite.c"></gh-include>
 
@@ -41,8 +41,57 @@ Here we are stepping into the `glibc` part. Though I did not completely grasp ev
 
 4) **The syscall at the final moment :** `fclose` calls `_IO_file_close_it`, which calls the `_IO_do_write`, which calls the actual `write` syscall, copying the buffer to the kernel's page cache. This is the point where a real I/O error (disk full, EROFS, quota, etc.) could occur. 
 
+So in our program: `fwrite` succeeded the instant the `memcpy` into the buffer completed. There was never a real chance for it to fail with 18 bytes into an empty buffer.
+
+## what actually is the bug?
+
+```c
+int return_value = fwrite(buffer, sizeof(buffer[0]), countof(buffer) - 1, file);
+// we write 18 elements (countof(buffer) - 1 = 19 - 1 = 18)
+
+if (ferror(file) || (unsigned long)return_value < countof(buffer)) {
+//                                                 ^^^^^^^^^^^^^^^ 19, not 18!
+```
+
+Walk through it with real numbers:
+
+- `countof(buffer)` = 19 (array size, includes the `\0`)
+- I correctly write `countof(buffer) - 1` = **18** elements
+- `fwrite` succeeds completely → `return_value` = **18**
+- `ferror(file)` → false (nothing actually failed)
+- Second condition: `18 < 19` → **true**
+
+So basically I was comparing what I *actually asked fwrite to write* (18) against the *full array size including the null terminator* (19) — two different numbers that were never supposed to be compared. The `-1` correction I applied to the `fwrite` call needed to be mirrored in the comparison too. It wasn't. So the `if` triggers even on a flawless write - that is my comparison was always true, no matter.
+
+**Why the error message says "Success":** `errno` is only ever *set* by a failing call — no library function is required to clear or set it on success. `fwrite` succeeded, so it never touched `errno`. It was last explicitly set to `0` by me, and `fopen` succeeding didn't change it either. So when `perror("fwrite failed.")` runs, it calls `strerror(errno)` on `errno == 0`, and POSIX defines that string as `"Success"`. The program is confidently reporting an error that the OS insists never happened — because, mechanically, it didn't.
+
+## The fix
+
+```c
+if (ferror(file) || (size_t)return_value < countof(buffer) - 1) {
+```
+
+Compare against the same `-1`-adjusted value that I actually requested.
+
+**One more smell, unrelated to this bug but worth fixing (this is by claude - to me):** `fwrite` returns `size_t`, but you're storing it in `int`. It works here only because 18 is tiny. On a large write (`nmemb` > `INT_MAX`, or just on a platform/ABI where the implicit conversion truncates oddly) this becomes a real bug. Declare it `size_t return_value` and drop the cast entirely — compare `size_t` to `size_t`.
+
+## Reference table
+
+| Topic | Source |
+|---|---|
+| `fwrite` signature & return semantics | https://en.cppreference.com/w/c/io/fwrite |
+| `fwrite` short-write / ferror contract | https://cplusplus.com/reference/cstdio/fwrite/ |
+| glibc stream buffering concepts | https://www.gnu.org/software/libc/manual/html_node/Stream-Buffering.html |
+| glibc buffer flushing rules | https://www.gnu.org/software/libc/manual/html_node/Flushing-Buffers.html |
+| `errno`/`perror`/`strerror` man pages | https://man7.org/linux/man-pages/man3/errno.3.html |
+| `write(2)` syscall | https://man7.org/linux/man-pages/man2/write.2.html |
+| `_Countof`/`countof` proposal (note: this is a **C2y** proposal, not C23 — our file header is slightly off) | https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3369.pdf |
+| Background on the `lengthof` → `countof` rename | https://thephd.dev/c2y-hitting-the-ground-running |
+
+
 ## The corrected code. 
 
 **Add a symbol there - `fwrite` has been my favourite**
+
 <gh-include src="cobra-r9/Init87/main/misc/stdio/fwrite.c"></gh-include>
 
