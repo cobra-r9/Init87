@@ -29,6 +29,11 @@ int main(void) {
     // by doing this, we can prevent partial write. 
     // but still I have a doubt. How can we read 1024 objects when the file has only fewer objects?
     size_t nmemb = fread(buffer, sizeof(char), sizeof(buffer), file);
+    // in this case, soon after the file reaches the EOF, the read ends. 
+    // that is : the file size is less than the buffer allocated. 
+    // it reaches EOF even before 1024 bytes. 
+    // therefore it is considered a partial read, thouh all the data is read from the file.
+    // the below given check is only for : if it not at all read. 
     if (nmemb == 0 ) {
         printf("fread failed.\n");
         fclose(file);
